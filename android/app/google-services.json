@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "832573395255",
+    "project_id": "puzzle-9e8c6",
+    "storage_bucket": "puzzle-9e8c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:832573395255:android:864434fc3e9f1b83674ab2",
+        "android_client_info": {
+          "package_name": "com.example.puzzle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyChytJaGY4SZTdnVUAt5jy-ntTUkcDFIVE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+{
+  "guest_sign_in": "訪客登入",
+  "new_puzzle": "新遊戲",
+  "number": "數字",
+  "image": "圖片",
+  "leave": "離開",
+  "finish_game": "結束遊戲",
+  "create_success": "建立成功",
+  "move_tile_error": "這個方塊無法移動。請移動其他方塊。",
+  "what_is_n_puzzle": "什麼是數字推盤遊戲?",
+  "no_ongoing_game": "沒有進行中的遊戲",
+  "number_game_title": "數字遊戲 {id}",
+  "@number_game_title": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "image_game_title": "圖片遊戲 {id}",
+  "@image_game_title": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "playing_time": "遊戲時間: {time}",
+  "@playing_time": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  }
+}

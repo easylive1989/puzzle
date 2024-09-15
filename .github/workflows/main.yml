@@ -1,0 +1,43 @@
+name: Continuous Integration
+
+on: push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.22.3'
+          channel: 'stable'
+      - name: Run Flutter Test
+        run: flutter test --coverage
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Start Firebase Emulators
+        run: |
+          npm install -g firebase-tools
+      - name: enable KVM for linux runners
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Run Flutter Integration Test
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          arch: x86_64
+          profile: Nexus 6
+          script: firebase emulators:exec --only auth 'flutter test integration_test'
+      - name: Setup LCOV
+        uses: hrishikesh-kadam/setup-lcov@v1
+      - name: Generate Test Coverage Report
+        run: genhtml coverage/lcov.info -o coverage/html
+      - name: Archive Test Coverage Report
+        uses: actions/upload-artifact@v2
+        with:
+          name: Test Coverage
+          path: coverage/html

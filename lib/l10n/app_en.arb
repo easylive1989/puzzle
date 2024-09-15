@@ -1,0 +1,36 @@
+{
+  "guest_sign_in": "Sign In as Guest",
+  "new_puzzle": "New Game",
+  "number": "Number",
+  "image": "Image",
+  "leave": "Leave",
+  "finish_game": "Finish Game",
+  "create_success": "Create Success",
+  "move_tile_error": "This tile cannot be moved. Please try moving another tile.",
+  "what_is_n_puzzle": "What is N-Puzzle?",
+  "no_ongoing_game": "No ongoing game",
+  "number_game_title": "Number Game {id}",
+  "@number_game_title": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "image_game_title": "Image Game {id}",
+  "@image_game_title": {
+    "placeholders": {
+      "id": {
+        "type": "int"
+      }
+    }
+  },
+  "playing_time": "Playing time: {time}",
+  "@playing_time": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  }
+}
