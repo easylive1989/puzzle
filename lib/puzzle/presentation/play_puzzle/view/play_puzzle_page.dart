@@ -22,8 +22,7 @@ class PlayPuzzlePage extends StatelessWidget {
           create: (context) => MoveTileBloc(context.read()),
         ),
         BlocProvider<PuzzleBloc>(
-          create: (context) =>
-              PuzzleBloc( context.read())..add(LoadPuzzle(id)),
+          create: (context) => PuzzleBloc(context.read())..add(LoadPuzzle(id)),
         ),
       ],
       child: Scaffold(
@@ -53,7 +52,12 @@ class PlayPuzzlePage extends StatelessWidget {
       children: [
         PlayingTimeView(puzzle: puzzle),
         const SizedBox(height: 20),
-        const Icon(Icons.undo),
+        GestureDetector(
+          onTap: () {
+            context.read<MoveTileBloc>().add(MoveTile(id: id, tile: 7));
+          },
+          child: const Icon(Icons.undo),
+        ),
         Container(
           decoration: BoxDecoration(border: Border.all()),
           width: puzzleTileSize * puzzle.size,
