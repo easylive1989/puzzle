@@ -23,6 +23,29 @@ main() {
     _puzzleRepository = PuzzleDbRepository(appDatabase.puzzleGamesDao);
   });
 
+  group("undo", () {
+    testWidgets("move number tile and undo", (tester) async {
+      _givenPuzzle(puzzle(
+        type: PuzzleType.number,
+        tiles: [1, 2, 3, 4, 5, 6, 7, 0, 8],
+      ));
+
+      await _givenPlayPuzzlePage(tester);
+
+      await _whenMove(tester, tile: "7");
+
+      await tester.tap(find.byIcon(Icons.undo));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 1000));
+
+      _puzzleShouldBe(tester, [
+        ["1", "2", "3"],
+        ["4", "5", "6"],
+        ["7", "x", "8"],
+      ]);
+    }, skip: true);
+  });
+
   group("playing time", () {
     testWidgets("show playing time when game is ongoing", (tester) async {
       withClock(Clock.fixed(DateTime.parse("2024-06-01 00:10:00")), () async {

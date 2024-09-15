@@ -53,6 +53,7 @@ class PlayPuzzlePage extends StatelessWidget {
       children: [
         PlayingTimeView(puzzle: puzzle),
         const SizedBox(height: 20),
+        const Icon(Icons.undo),
         Container(
           decoration: BoxDecoration(border: Border.all()),
           width: puzzleTileSize * puzzle.size,
