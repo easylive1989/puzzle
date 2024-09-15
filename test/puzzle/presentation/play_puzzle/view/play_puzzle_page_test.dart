@@ -59,6 +59,28 @@ main() {
         ["7", "x", "8"],
       ]);
     });
+
+    testWidgets("move three times and undo twice", (tester) async {
+      _givenPuzzle(puzzle(
+        type: PuzzleType.number,
+        tiles: [1, 2, 3, 4, 5, 6, 7, 0, 8],
+      ));
+
+      await _givenPlayPuzzlePage(tester);
+
+      await _whenMove(tester, tile: "7");
+      await _whenMove(tester, tile: "4");
+      await _whenMove(tester, tile: "1");
+
+      await _whenUndo(tester);
+      await _whenUndo(tester);
+
+      _puzzleShouldBe(tester, [
+        ["1", "2", "3"],
+        ["4", "5", "6"],
+        ["x", "7", "8"],
+      ]);
+    }, skip: true);
   });
 
   group("playing time", () {
