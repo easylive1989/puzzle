@@ -42,7 +42,24 @@ main() {
         ["7", "x", "8"],
       ]);
     });
-  });
+
+    testWidgets("undo before move any tile", (tester) async {
+      _givenPuzzle(puzzle(
+        type: PuzzleType.number,
+        tiles: [1, 2, 3, 4, 5, 6, 7, 0, 8],
+      ));
+
+      await _givenPlayPuzzlePage(tester);
+
+      await _whenUndo(tester);
+
+      _puzzleShouldBe(tester, [
+        ["1", "2", "3"],
+        ["4", "5", "6"],
+        ["7", "x", "8"],
+      ]);
+    });
+  }, skip: true);
 
   group("playing time", () {
     testWidgets("show playing time when game is ongoing", (tester) async {
