@@ -34,9 +34,7 @@ main() {
 
       await _whenMove(tester, tile: "7");
 
-      await tester.tap(find.byIcon(Icons.undo));
-      await tester.pump();
-      await tester.pump(const Duration(milliseconds: 1000));
+      await _whenUndo(tester);
 
       _puzzleShouldBe(tester, [
         ["1", "2", "3"],
@@ -122,6 +120,12 @@ main() {
     });
   });
 
+}
+
+Future<void> _whenUndo(WidgetTester tester) async {
+  await tester.tap(find.byIcon(Icons.undo));
+  await tester.pump();
+  await tester.pump(const Duration(milliseconds: 1000));
 }
 
 void _puzzleShouldBe(WidgetTester tester, List<List<String>> puzzle) {
