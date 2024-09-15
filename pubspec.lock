@@ -317,12 +317,12 @@ packages:
     dependency: "direct dev"
     description:
       name: firebase_auth_mocks
-      sha256: e89fad2e9e536d289fa6f348cd71a92bf7ff64b7b4e32af7e2d58f7a6344d853
+      sha256: "3d4442f2856c03917777e5ddf6bb7ff5fb53e9b04426d1e1146b339bd3f19892"
       url: "https://pub.dev"
     source: hosted
-    version: "0.14.0"
+    version: "0.14.1"
   firebase_auth_platform_interface:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: firebase_auth_platform_interface
       sha256: "6941c07a1d129a8b834f85b6673d3455f24102b6338346596c26ef3be2c106ce"
@@ -346,7 +346,7 @@ packages:
     source: hosted
     version: "3.1.0"
   firebase_core_platform_interface:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: firebase_core_platform_interface
       sha256: "1003a5a03a61fc9a22ef49f37cbcb9e46c86313a7b2e7029b9390cf8c6fc32cb"
@@ -628,14 +628,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.3"
-  mocktail_image_network:
-    dependency: "direct dev"
-    description:
-      name: mocktail_image_network
-      sha256: a1fccbba780343517cfc552e0af2b3834d8bdb8f9f55a746c4d495ed1a8d50d6
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.2.0"
   nested:
     dependency: transitive
     description:
@@ -1069,10 +1061,10 @@ packages:
     dependency: transitive
     description:
       name: uuid
-      sha256: "814e9e88f21a176ae1359149021870e87f7cddaf633ab678a5d2b0bff7fd1ba8"
+      sha256: f33d6bb662f0e4f79dcd7ada2e6170f3b3a2530c28fc41f49a411ddedd576a77
       url: "https://pub.dev"
     source: hosted
-    version: "4.4.0"
+    version: "4.5.0"
   vector_graphics_codec:
     dependency: transitive
     description:

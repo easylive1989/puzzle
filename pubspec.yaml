@@ -61,10 +61,7 @@ dev_dependencies:
   mocktail: ^1.0.3
   drift_dev: ^2.16.0
   build_runner: ^2.4.9
-  firebase_core_platform_interface: ^5.1.0
   firebase_auth_mocks: ^0.14.0
-  firebase_auth_platform_interface: ^7.4.0
-  mocktail_image_network: ^1.2.0
   plugin_platform_interface: ^2.1.8
   mockingjay: ^0.5.0
   flutter_gen_runner: ^5.6.0
