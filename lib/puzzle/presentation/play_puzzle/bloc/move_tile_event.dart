@@ -11,3 +11,12 @@ class MoveTile extends MoveTileEvent {
   @override
   List<Object?> get props => [id, tile];
 }
+
+class UndoMove extends MoveTileEvent {
+  final int id;
+
+  UndoMove({required this.id});
+
+  @override
+  List<Object?> get props => [id];
+}

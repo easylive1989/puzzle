@@ -7,19 +7,12 @@ import 'package:puzzle/puzzle/presentation/play_puzzle/view/playing_time_view.da
 import 'package:puzzle/puzzle/presentation/play_puzzle/view/tile_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class PlayPuzzlePage extends StatefulWidget {
+class PlayPuzzlePage extends StatelessWidget {
   static String route = "/game";
 
   const PlayPuzzlePage({super.key, required this.id});
 
   final int id;
-
-  @override
-  State<PlayPuzzlePage> createState() => _PlayPuzzlePageState();
-}
-
-class _PlayPuzzlePageState extends State<PlayPuzzlePage> {
-  int? lastMovedTile;
 
   @override
   Widget build(BuildContext context) {
@@ -29,8 +22,7 @@ class _PlayPuzzlePageState extends State<PlayPuzzlePage> {
           create: (context) => MoveTileBloc(context.read()),
         ),
         BlocProvider<PuzzleBloc>(
-          create: (context) =>
-              PuzzleBloc(context.read())..add(LoadPuzzle(widget.id)),
+          create: (context) => PuzzleBloc(context.read())..add(LoadPuzzle(id)),
         ),
       ],
       child: Scaffold(
@@ -62,10 +54,7 @@ class _PlayPuzzlePageState extends State<PlayPuzzlePage> {
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            context.read<MoveTileBloc>().add(MoveTile(
-                  id: widget.id,
-                  tile: lastMovedTile!,
-                ));
+            context.read<MoveTileBloc>().add(UndoMove(id: id));
           },
           child: const Icon(Icons.undo),
         ),
@@ -86,9 +75,8 @@ class _PlayPuzzlePageState extends State<PlayPuzzlePage> {
                     puzzleTileSize: puzzleTileSize,
                     onTap: () {
                       context
-                        .read<MoveTileBloc>()
-                        .add(MoveTile(id: widget.id, tile: tile.value));
-                      lastMovedTile = tile.value;
+                          .read<MoveTileBloc>()
+                          .add(MoveTile(id: id, tile: tile.value));
                     },
                   ),
                 ),
@@ -108,7 +96,7 @@ class _PlayPuzzlePageState extends State<PlayPuzzlePage> {
         AppLocalizations.of(context)!.move_tile_error,
       )));
     } else {
-      context.read<PuzzleBloc>().add(LoadPuzzle(widget.id));
+      context.read<PuzzleBloc>().add(LoadPuzzle(id));
     }
   }
 }
