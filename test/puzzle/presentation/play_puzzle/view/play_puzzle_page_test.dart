@@ -59,7 +59,7 @@ main() {
         ["7", "x", "8"],
       ]);
     });
-  }, skip: true);
+  });
 
   group("playing time", () {
     testWidgets("show playing time when game is ongoing", (tester) async {

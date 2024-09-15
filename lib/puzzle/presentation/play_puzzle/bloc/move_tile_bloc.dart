@@ -27,6 +27,10 @@ class MoveTileBloc extends Bloc<MoveTileEvent, MoveTileState> {
   }
 
   Future<void> _undo(event,  emit) async {
+    if (state.lastMovedTile == null) {
+      return;
+    }
+
     await _moveTileUseCase.move(event.id, state.lastMovedTile!);
     emit(state.toSuccess(movedTile: null));
   }
