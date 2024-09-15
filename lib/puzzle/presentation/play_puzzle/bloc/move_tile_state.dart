@@ -22,10 +22,17 @@ class MoveTileState {
     );
   }
 
-  MoveTileState toSuccess({required List<int> lastMoveTiles}) {
+  MoveTileState toMoveSuccess({required int movedTile}) {
     return copyWith(
       status: MoveTileStatus.success,
-      lastMovedTiles: lastMoveTiles,
+      lastMovedTiles: [...lastMovedTiles, movedTile],
+    );
+  }
+
+  MoveTileState toUndoSuccess() {
+    return copyWith(
+      status: MoveTileStatus.success,
+      lastMovedTiles: lastMovedTiles.sublist(0, lastMovedTiles.length - 1),
     );
   }
 
