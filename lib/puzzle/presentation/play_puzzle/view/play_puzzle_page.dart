@@ -7,12 +7,19 @@ import 'package:puzzle/puzzle/presentation/play_puzzle/view/playing_time_view.da
 import 'package:puzzle/puzzle/presentation/play_puzzle/view/tile_view.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class PlayPuzzlePage extends StatelessWidget {
+class PlayPuzzlePage extends StatefulWidget {
   static String route = "/game";
 
   const PlayPuzzlePage({super.key, required this.id});
 
   final int id;
+
+  @override
+  State<PlayPuzzlePage> createState() => _PlayPuzzlePageState();
+}
+
+class _PlayPuzzlePageState extends State<PlayPuzzlePage> {
+  int? lastMovedTile;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +29,8 @@ class PlayPuzzlePage extends StatelessWidget {
           create: (context) => MoveTileBloc(context.read()),
         ),
         BlocProvider<PuzzleBloc>(
-          create: (context) => PuzzleBloc(context.read())..add(LoadPuzzle(id)),
+          create: (context) =>
+              PuzzleBloc(context.read())..add(LoadPuzzle(widget.id)),
         ),
       ],
       child: Scaffold(
@@ -54,7 +62,10 @@ class PlayPuzzlePage extends StatelessWidget {
         const SizedBox(height: 20),
         GestureDetector(
           onTap: () {
-            context.read<MoveTileBloc>().add(MoveTile(id: id, tile: 7));
+            context.read<MoveTileBloc>().add(MoveTile(
+                  id: widget.id,
+                  tile: lastMovedTile!,
+                ));
           },
           child: const Icon(Icons.undo),
         ),
@@ -73,9 +84,12 @@ class PlayPuzzlePage extends StatelessWidget {
                     tile: tile.value,
                     puzzleType: puzzle.type,
                     puzzleTileSize: puzzleTileSize,
-                    onTap: () => context
+                    onTap: () {
+                      context
                         .read<MoveTileBloc>()
-                        .add(MoveTile(id: id, tile: tile.value)),
+                        .add(MoveTile(id: widget.id, tile: tile.value));
+                      lastMovedTile = tile.value;
+                    },
                   ),
                 ),
             ],
@@ -94,7 +108,7 @@ class PlayPuzzlePage extends StatelessWidget {
         AppLocalizations.of(context)!.move_tile_error,
       )));
     } else {
-      context.read<PuzzleBloc>().add(LoadPuzzle(id));
+      context.read<PuzzleBloc>().add(LoadPuzzle(widget.id));
     }
   }
 }
