@@ -52,11 +52,16 @@ class PlayPuzzlePage extends StatelessWidget {
       children: [
         PlayingTimeView(puzzle: puzzle),
         const SizedBox(height: 20),
-        GestureDetector(
-          onTap: () {
-            context.read<MoveTileBloc>().add(UndoMove(id: id));
-          },
-          child: const Icon(Icons.undo),
+        Container(
+          margin: const EdgeInsets.only(bottom: 8),
+          alignment: Alignment.centerRight,
+          width: puzzleTileSize * puzzle.size,
+          child: GestureDetector(
+            onTap: () {
+              context.read<MoveTileBloc>().add(UndoMove(id: id));
+            },
+            child: const Icon(Icons.undo),
+          ),
         ),
         Container(
           decoration: BoxDecoration(border: Border.all()),
