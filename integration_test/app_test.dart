@@ -1,7 +1,4 @@
 import 'package:drift/drift.dart';
-import 'package:drift/native.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -19,9 +16,7 @@ import 'app_test_utils.dart';
 late _MockRandomGenerator _randomGenerator;
 main() async {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-  AppDatabase database = AppDatabase(NativeDatabase.memory());
+  AppDatabase database = AppDatabase();
 
   setUp(() async {
     _randomGenerator = _MockRandomGenerator();
@@ -33,8 +28,6 @@ main() async {
     _givenRandomNumberList([1, 2, 3, 4, 5, 6, 7, 0, 8]);
 
     await _openApp(tester, database);
-
-    await _login(tester);
 
     await _createNumberPuzzle(tester);
 
@@ -64,11 +57,6 @@ Future<void> _openGame(WidgetTester tester, int id) async {
 Future<void> _createNumberPuzzle(WidgetTester tester) async {
   await tester.pumpUntilFound(find.text(l10n.number));
   await tester.tap(find.text(l10n.number));
-}
-
-Future<void> _login(WidgetTester tester) async {
-  await tester.pumpUntilFound(find.text(l10n.guest_sign_in));
-  await tester.tap(find.text(l10n.guest_sign_in));
 }
 
 Future<void> _openApp(WidgetTester tester, AppDatabase database) async {

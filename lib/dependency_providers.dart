@@ -1,7 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
-import 'package:puzzle/authentication/data/firebase_authentication_repository.dart';
-import 'package:puzzle/authentication/domain/authentication_repository.dart';
 import 'package:puzzle/puzzle/data/puzzle_repository.dart';
 import 'package:puzzle/puzzle/data/source/app_database.dart';
 import 'package:puzzle/puzzle/data/puzzle_db_repository.dart';
@@ -17,9 +14,6 @@ class DependencyProviders {
     AppDatabase? database,
   }) {
     final appDatabase = database ?? AppDatabase();
-    final authenticationRepository = FirebaseAuthenticationRepository(
-      FirebaseAuth.instance,
-    );
     final puzzleDbRepository = PuzzleDbRepository(appDatabase.puzzleGamesDao);
     final moveTileUseCase = MoveTileUseCase(puzzleDbRepository);
     final getOngoingPuzzlesUseCase = GetOngoingPuzzlesUseCase(
@@ -38,7 +32,6 @@ class DependencyProviders {
       Provider<MoveTileUseCase>.value(value: moveTileUseCase),
       Provider<GetOngoingPuzzlesUseCase>.value(value: getOngoingPuzzlesUseCase),
       Provider<CreatePuzzleUseCase>.value(value: createPuzzleUseCase),
-      Provider<AuthenticationRepository>.value(value: authenticationRepository),
       Provider<PuzzleRepository>.value(value: puzzleDbRepository),
     ];
   }

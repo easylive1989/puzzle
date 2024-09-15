@@ -2,9 +2,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
-import 'package:provider/provider.dart';
-import 'package:puzzle/authentication/domain/entity/puzzle_user.dart';
-import 'package:puzzle/authentication/presentation/login/bloc/authentication_cubit.dart';
 import 'package:puzzle/puzzle/domain/entity/puzzle_type.dart';
 import 'package:puzzle/puzzle/presentation/puzzle_list/bloc/puzzle_info.dart';
 import 'package:puzzle/puzzle/presentation/puzzle_list/bloc/puzzle_list_cubit.dart';
@@ -15,16 +12,14 @@ import '../../../../widget_test_utils.dart';
 
 late MocUrlLauncherPlatform _urlLauncherPlatform;
 late PuzzleListCubit _puzzleListCubit;
-late AuthenticationCubit _authenticationCubit;
 
 main() {
   setUp(() {
     registerFallbackValue(PuzzleType.number);
     registerFallbackValue(const LaunchOptions());
-    UrlLauncherPlatform.instance = _urlLauncherPlatform = MocUrlLauncherPlatform();
+    UrlLauncherPlatform.instance =
+        _urlLauncherPlatform = MocUrlLauncherPlatform();
     _puzzleListCubit = MockPuzzleListCubit();
-    _authenticationCubit = MockAuthenticationCubit();
-    _givenOnAuthChange();
   });
 
   testWidgets("creat new number game", (tester) async {
@@ -89,24 +84,9 @@ void _givenLaunchUrlOk() {
       .thenAnswer((invocation) async => true);
 }
 
-void _givenOnAuthChange() {
-  when(() => _authenticationCubit.stream)
-      .thenAnswer((_) => const Stream.empty());
-  when(() => _authenticationCubit.state).thenReturn(Authenticated(
-    const PuzzleUser(
-      id: "1",
-      name: "name",
-      photoUrl: "photoUrl",
-    ),
-  ));
-}
-
 Future<void> _givenPuzzleListView(WidgetTester tester) async {
-  await tester.givenView(MultiBlocProvider(
-    providers: [
-      Provider.value(value: _puzzleListCubit),
-      Provider.value(value: _authenticationCubit),
-    ],
+  await tester.givenView(BlocProvider<PuzzleListCubit>.value(
+    value: _puzzleListCubit,
     child: const PuzzleListView(),
   ));
 }
@@ -124,8 +104,6 @@ void _givenPuzzleInfoList(List<PuzzleInfo> puzzleInfos) {
 }
 
 class MockPuzzleListCubit extends Mock implements PuzzleListCubit {}
-
-class MockAuthenticationCubit extends Mock implements AuthenticationCubit {}
 
 class MocUrlLauncherPlatform extends Mock
     with MockPlatformInterfaceMixin

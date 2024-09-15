@@ -1,4 +1,3 @@
-import 'package:firebase_core_platform_interface/firebase_core_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -6,12 +5,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations_en.dart';
 
 typedef Callback = void Function(MethodCall call);
-
-void setupFirebaseAuthMocks([Callback? customHandlers]) {
-  TestWidgetsFlutterBinding.ensureInitialized();
-
-  setupFirebaseCoreMocks();
-}
 
 extension WidgetTesterExtension on WidgetTester {
   Future<void> givenView(
