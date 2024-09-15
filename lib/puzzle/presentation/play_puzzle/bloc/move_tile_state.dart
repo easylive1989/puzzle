@@ -8,21 +8,24 @@ enum MoveTileStatus {
 
 class MoveTileState {
   final MoveTileStatus status;
-  final int? lastMovedTile;
+  final List<int> lastMovedTiles;
 
   MoveTileState({
     required this.status,
-    this.lastMovedTile,
+    required this.lastMovedTiles,
   });
 
   factory MoveTileState.initial() {
-    return MoveTileState(status: MoveTileStatus.initial);
+    return MoveTileState(
+      status: MoveTileStatus.initial,
+      lastMovedTiles: [],
+    );
   }
 
-  MoveTileState toSuccess({int? movedTile}) {
+  MoveTileState toSuccess({required List<int> lastMoveTiles}) {
     return copyWith(
       status: MoveTileStatus.success,
-      lastMovedTile: movedTile,
+      lastMovedTiles: lastMoveTiles,
     );
   }
 
@@ -32,11 +35,11 @@ class MoveTileState {
 
   MoveTileState copyWith({
     MoveTileStatus? status,
-    int? lastMovedTile,
+    List<int>? lastMovedTiles,
   }) {
     return MoveTileState(
       status: status ?? this.status,
-      lastMovedTile: lastMovedTile ?? this.lastMovedTile,
+      lastMovedTiles: lastMovedTiles ?? this.lastMovedTiles,
     );
   }
 }

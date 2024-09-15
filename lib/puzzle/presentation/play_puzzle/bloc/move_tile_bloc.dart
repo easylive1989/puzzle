@@ -20,18 +20,20 @@ class MoveTileBloc extends Bloc<MoveTileEvent, MoveTileState> {
   Future<void> _move(event, emit) async {
     try {
       await _moveTileUseCase.move(event.id, event.tile);
-      emit(state.toSuccess(movedTile: event.tile));
+      emit(state.toSuccess(
+        lastMoveTiles: state.lastMovedTiles..add(event.tile),
+      ));
     } on PuzzleException {
       emit(state.toFail());
     }
   }
 
-  Future<void> _undo(event,  emit) async {
-    if (state.lastMovedTile == null) {
+  Future<void> _undo(event, emit) async {
+    if (state.lastMovedTiles.isEmpty) {
       return;
     }
 
-    await _moveTileUseCase.move(event.id, state.lastMovedTile!);
-    emit(state.toSuccess(movedTile: null));
+    await _moveTileUseCase.move(event.id, state.lastMovedTiles.last);
+    emit(state.toSuccess(lastMoveTiles: state.lastMovedTiles..removeLast()));
   }
 }
