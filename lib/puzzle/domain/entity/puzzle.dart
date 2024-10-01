@@ -48,10 +48,13 @@ class Puzzle {
   bool _canMove(int indexOfEmptyTile, int indexOfTile) {
     var rowOfEmptyTile = indexOfEmptyTile ~/ size;
     var rowOfTile = indexOfTile ~/ size;
-    bool isSameRow = rowOfEmptyTile == rowOfTile;
-    var distance = (indexOfTile - indexOfEmptyTile).abs();
+    var columnOfEmptyTile = indexOfEmptyTile % size;
+    var columnOfTile = indexOfTile % size;
 
-    return (isSameRow && distance == 1) || distance == size;
+    var rowDifference = (rowOfEmptyTile - rowOfTile).abs();
+    var columnDifference = (columnOfEmptyTile - columnOfTile).abs();
+
+    return rowDifference + columnDifference == 1;
   }
 
   void _swap(int index1, int index2) {
