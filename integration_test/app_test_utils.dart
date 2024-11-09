@@ -11,18 +11,12 @@ AppLocalizations get l10n => Platform.isIOS ? AppLocalizationsZh() : AppLocaliza
 
 extension WidgetTesterExtension on WidgetTester {
   Future<void> pumpUntilFound(Finder finder) async {
-    Duration timeout = const Duration(seconds: 10);
-    bool timerDone = false;
+    const timeout = Duration(seconds: 10);
     final timer = Timer( timeout, () {
       throw TimeoutException("Pump until has timed out");
     });
-    while (timerDone != true) {
+    while (any(finder) != true) {
       await pump(const Duration(milliseconds: 100));
-
-      final found = any(finder);
-      if (found) {
-        timerDone = true;
-      }
     }
     timer.cancel();
   }
